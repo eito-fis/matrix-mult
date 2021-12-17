@@ -3,10 +3,8 @@
 
 module main;
 
-localparam MAX_CYCLES = 384 * 2 + 1;
-
 parameter A = 16;
-parameter B = 32;
+parameter B = 32; // Can't be changed
 parameter C = 24;
 parameter BITS = 8;
 parameter OUT_BITS = BITS * 4;
@@ -88,7 +86,7 @@ initial begin
 		#5 assert(m3_rd_data === mv_data) else begin
 			errors = errors + 1;
 		end
-		#5 $display("Calculated: %d | Correct: %d", m3_rd_data, mv_data);
+		/* #5 $display("Calculated: %d | Correct: %d", m3_rd_data, mv_data); */
 		@(negedge clk);
 	end
 

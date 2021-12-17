@@ -26,9 +26,9 @@ def write_matrix(m, file_name, bits=8):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--a', type=int, default=16)
-    parser.add_argument('--b', type=int, default=32)
-    parser.add_argument('--c', type=int, default=24)
+    parser.add_argument('-a', type=int, default=16)
+    parser.add_argument('-b', type=int, default=32)
+    parser.add_argument('-c', type=int, default=24)
     args = parser.parse_args()
 
     a = np.random.randint(0, 255, size=(args.a, args.b), dtype=np.uint8)
