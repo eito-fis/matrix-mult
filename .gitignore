@@ -1,3 +1,5 @@
 *.bin
 *.vcd
-memories/*
+memories/a.memh
+memories/b.memh
+memories/c.memh
