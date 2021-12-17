@@ -69,7 +69,7 @@ scope. This is due to two factors:
   multiplication of two vectors. The implementation of this summation in this
   module is hardcoded, and therefore B is limited to a value of 32.
 
-DIAGRAM HERE
+![matmul](diagrams/Matmul.png)
 
 The above diagram shows the general structure of the module.
 - The first component is a set of two registers that track the current row and
@@ -90,7 +90,7 @@ product, multiplying each element of the vectors at a time and accumulating the
 results in a register. This enables it to multiply two matrices of arbitrary
 size, assuming they and the result fit in memory.
 
-DIAGRAM HERE
+![matmul_n](diagrams/Matmul_n.png)
 
 The above diagram shows the general structure of the module. The overall
 structure is similar to matmul, although there are key differences:

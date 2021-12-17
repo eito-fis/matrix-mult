@@ -97,7 +97,6 @@ module matmul_n(
 				ACCUM: begin
 					accum <= accum + prod;
 					if (chunk == B - 1) begin
-						chunk <= 0;
 						state <= INCR;
 					end else begin
 						chunk <= chunk + 1;
@@ -105,6 +104,7 @@ module matmul_n(
 				end
 				INCR: begin
 					state <= ACCUM;
+					chunk <= 0;
 					accum <= 0;
 				end
 				default: begin end
