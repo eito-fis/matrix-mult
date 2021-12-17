@@ -15,5 +15,8 @@ generate_memories:
 test_matmul: tests/test_matmul.sv $(FILES) generate_memories
 	${IVERILOG} $^ -o test_matmul.bin && ${VVP} test_matmul.bin
 
+test_matmul_n: tests/test_matmul_n.sv $(FILES) generate_memories
+	${IVERILOG} $^ -o test_matmul_n.bin && ${VVP} test_matmul_n.bin
+
 clean:
 	rm -f *.bin *.vcd vivado*.log vivado*.jou vivado*.str

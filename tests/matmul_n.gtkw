@@ -1,0 +1,43 @@
+[*]
+[*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
+[*] Fri Dec 17 06:21:39 2021
+[*]
+[dumpfile] "/home/l05/code/olin/comparch/matrix-mult/matmul.vcd"
+[dumpfile_mtime] "Fri Dec 17 06:18:19 2021"
+[dumpfile_size] 2450414
+[savefile] "/home/l05/code/olin/comparch/matrix-mult/tests/matmul_n.gtkw"
+[timestart] 286380
+[size] 3800 2030
+[pos] -1 -1
+*-13.000000 315000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] main.
+[sst_width] 374
+[signals_width] 286
+[sst_expanded] 1
+[sst_vpaned_height] 633
+@28
+main.MATMUL.clk
+main.MATMUL.state
+@200
+-MATMUL
+@24
+main.MATMUL.incr_ena
+main.MATMUL.col[4:0]
+main.MATMUL.row[3:0]
+main.MATMUL.chunk[5:0]
+@200
+-DOT PROD
+@24
+main.MATMUL.m1_cell[7:0]
+main.MATMUL.m2_cell[7:0]
+main.MATMUL.prod[31:0]
+main.MATMUL.accum[31:0]
+@200
+-SUM
+@28
+main.MATMUL.m3_wr_ena
+@24
+main.MATMUL.m3_wr_addr[8:0]
+main.MATMUL.m3_wr_data[31:0]
+[pattern_trace] 1
+[pattern_trace] 0
