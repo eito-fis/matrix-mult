@@ -73,9 +73,10 @@ scope. This is due to two factors:
 
 The above diagram shows the general structure of the module.
 - The first component is a set of two registers that track the current row and
-  column we are multiplying. We iterate over all rows before moving to the next
-  column. Not included in the diagram - the `valid` signal is set when both row
-  and col reach their end values. When `valid` is set, the registers stop incrementing.
+  column we are multiplying. We iterate over all rows (until `row + 1 == A`)
+  before moving to the next column. Not included in the diagram - the `valid`
+  signal is set when both row and col reach their end values. When `valid` is
+  set, the registers stop incrementing.
 - The second component is the calculation of the dot product. This is computed
   as several parallel multiplications, followed by a tree of adders to produce
   the final value.
@@ -92,18 +93,27 @@ size, assuming they and the result fit in memory.
 
 ![matmul_n](diagrams/Matmul_n.png)
 
-The above diagram shows the general structure of the module. The overall
-structure is similar to matmul, although there are key differences:
-- The rows and cols have a new enable signal, which is controlled by the FSM.
-  The rows and columns will only increment once `chunk == B - 1` and all B
-  elements have been accumulated.
-- There is only a single multiply and add for the dot product. Now, the current
-  row and column are fed into a mux and the element to multiply is selected via
-  the `chunk` variable. The product is then added to the current value of the
-  accumulation register, and the result is saved on the clock edge when `chunk`
-  is incremented.
-- The write enable is now controlled by the FSM, and only set when we are
-  incrementing the rows and cols.
+The above diagram shows the general structure of the module. matmul_n is similar
+in structure to matmul, but uses uses a FSM with two states, `ACCUM` and `INCR`,
+to module when operation occur.
+- When in `ACCUM`, several things happen:
+  - `inc` is set to 0, freezing row and col
+  - `chunk` is incremented, selecting a new set of elements
+  - `accum` is set, allowing us to add the product of the two elements as selected by
+    `chunk` to the accumulation register.
+  - The state changes back to `INCR` when `chunk == B - 1` and we've computed the dot
+    product
+- When in `INCR`, several things happen:
+  - `inc` is set, allowing the rows and columns to increment.
+  - `wr_ena` is set, writing the computed dot product to the RAM.
+  - `rst_accum` is set, to reset the accumulation register for the next
+    operation
+  - The state changes back to `ACCUM` on the first clock cycle.
+
+Note, the verilog implementation of the module does not match the diagram
+exactly. Aside from the addition of `valid`, the handling of the accumulation
+register is part of the FSM, similar to the handling of `chunk` in the diagram.
+This means there is no `accum` or `rst_accum` wire as shown in the diagram.
 
 The matmul_n module can also be extended to be more efficient. Currently, it
 computes only a single multiplication each clock cycle, and therefore does not
